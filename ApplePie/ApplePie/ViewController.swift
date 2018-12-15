@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     // Initialize the words for the game. Shuffle this list each
     // time the game is played to give it a replay value.
     var listOfWords = ["ages", "dragon", "omni", "angel", "eon", "plasma", "armor", "fallen", "scale", "ashen", "fang", "scar", "atomic", "flame", "scarlet", "black", "fire", "shade", "blade", "firefight", "shadow", "blaze", "galaxy", "storm", "burn", "hades", "steel", "chaos", "incendiary", "sworn", "chrome", "jade", "tornadic", "claw", "void", "crimson", "light", "vortex", "crypt", "oath", "wing", "draconic", "oblivion", "xeno"]
+    
+    // Initialize the shuffled list of words to add replay value.
     var shuffledListOfWords = [String]()
     
     // Initialize number of incorrect moves that are allowed.
@@ -36,6 +38,7 @@ class ViewController: UIViewController {
     }
     
     // Initialize the words that are quessed correctly.
+    // Reguired for the extra label.
     var correctWordsList: [String] = []
 
     // Initialize all outlets.
@@ -76,8 +79,10 @@ class ViewController: UIViewController {
         }
     }
     
-    /* Start a new round with the next word from the words-to-guess-list.
-     * If
+    /* Start a new round with the next word from the shuffled words-to-guess-list.
+     * Create a new game struct are reset all variables, including
+     * enabling the letter buttons. If all words are guessed,
+     * unable the letter buttons to avoid errors.
      */
     func newRound() {
         if !shuffledListOfWords.isEmpty {
@@ -90,11 +95,14 @@ class ViewController: UIViewController {
         }
     }
     
+    // Enable letter buttons to be pressed.
     func enableLetterButtons(_ enable: Bool) {
         for button in letterButtons {
             button.isEnabled = enable
         }
     }
+    
+    // Updates all labels in the view to match the game state.
     func updateUI() {
         var letters = [String]()
         for letter in currentGame.formattedWord {
@@ -102,6 +110,9 @@ class ViewController: UIViewController {
         }
         let wordWithSpacing = letters.joined(separator: " ")
         
+        // The extra label: When no word is correctly guessed,
+        // the label shows you that.
+        // If you correctly guessed words, the label show the words.
         if correctWordsList.count == 0 {
             guessedWordsLabel.text = "You haven't guessed any word right yet."
         } else {
