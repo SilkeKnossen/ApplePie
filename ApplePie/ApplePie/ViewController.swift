@@ -55,7 +55,7 @@ class ViewController: UIViewController {
         newRound()
     }
     
-    /* When a letter button is pressed, unable the button.
+    /* When a letter button is pressed, disable the button.
      * Check if the letter is in the word to quess, and update
      * the players state in the game.
      */
